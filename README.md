@@ -17,7 +17,7 @@ create a config.json like this:
       "inputCSV" : "./my great.csv",
       "titleRow" : "Project Title", // text that will be the title
       "replace" : {
-        "Unwanted non number field" : ["[^0-9]", ""] // does searc and replace for each replace
+        "Field which should only be digits" : ["[^0-9]", ""] // does search and replace for each field
       },
       "merges" : {
         "Population 1" : "Populations", // merges into one field (Populations)
