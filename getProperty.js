@@ -24,8 +24,8 @@ var params =  {
 var wikiClient = new bot({
   protocol: config.protocol,
   server: config.server,
-  path: config.path
-//  debug: true
+  path: config.path,
+  debug: false
 });
 
 wikiClient.logIn(config.user, config.password, getProperty);
