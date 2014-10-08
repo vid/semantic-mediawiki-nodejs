@@ -16,7 +16,7 @@
     "import",
     "spreadsheet"
   ],
-  "author": "Vid <david@equalit.ie> (http://www.equalit.ie/)",
+  "author": "Vid <vid@zooid.org>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vid/nodejs-semantic-mediawiki/issues"
@@ -25,5 +25,8 @@
   "dependencies": {
     "csv": "~0.1",
     "nodemw": "^0.3.15"
+  },
+  "devDependencies": {
+    "expect.js": "~0.2.0"
   }
 }

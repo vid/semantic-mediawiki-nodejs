@@ -1,5 +1,9 @@
 // converts the content in a csv file to SMW templated data and uploads them
 
+/*jslint node: true */
+
+'use strict';
+
 var csv = require('csv'), bot = require('nodemw');
 
 var configArg = process.argv[2];
@@ -28,7 +32,7 @@ function parseAndEdit() {
     console.log('csv has cols', hrows.length, 'rows', csvRows.length);
     var rowCount = 0;
     csvRows.forEach(function(row) {
-      var title = 'import-' + ++rowCount, merges = {}, r = '{{'+config.templateName + '\n';
+      var title = 'import-' + (++rowCount), merges = {}, r = '{{'+config.templateName + '\n';
       for (var i = 0; i < hrows.length; i++) {
         // if row has data
         if (row[i]) {
@@ -61,11 +65,11 @@ function parseAndEdit() {
     });
     console.log(JSON.stringify(templates, null, 2));
     templates.forEach(function(t) {
-      wikiClient.edit(t.title, t.data, 'importing from ' + config.inputCSV, function(result) { 
+      wikiClient.edit(t.title, t.data, 'importing from ' + config.inputCSV, function(result) {
         if (result.result !== 'Success') {
-          console.log(result.title, result.result); 
+          console.log(result.title, result.result);
         }
-      }); 
+      });
     });
 
   });
