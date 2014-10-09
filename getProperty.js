@@ -41,6 +41,6 @@ function getProperty() {
 function processResult(title) {
   wikiClient.getArticle(title, function(contents) {
     var props = parser.parseTemplates(contents)[0];
-    console.log('\n\nBEFORE', property ? props[property] : props);
+    console.log(property ? property.split(',').reduce(function(p) { return props[property]; }): props);
   });
 }
