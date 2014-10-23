@@ -22,7 +22,6 @@ var config = require('./config.json');
 
 // set up nodemailer
 var transporter = nodemailer.createTransport({host: config.smtpHost});
-//var mailFrom = 'Check URL <csfg-sysadmin@concordia.ca>';
 var mailFrom = config.mailFrom, defaultTo = mailFrom;
 var addresses = {};
 
@@ -56,7 +55,6 @@ function getURLs() {
         } catch (e) {
         }
         page = p.Page ? p.Page[0].fullurl : null;
-        console.log(url, notify, page);
         checkURL(url, notify, page, word);
       }
     }
@@ -88,8 +86,6 @@ function sendProblemEmail(url, notify, page, error) {
       text: 'Check URL: ' + url + '\nSource wiki page ' + page.replace('intranet', 'auth') + '\nError: ' + JSON.stringify(error, null, 2)
     };
 
-console.log('would send to', sendTo, url, error);
-/*
     transporter.sendMail(mailOptions, function(error, info){
       if (error){
         console.log(error);
@@ -97,7 +93,6 @@ console.log('would send to', sendTo, url, error);
         console.log('Message sent: ' + info.response);
       }
     });
-  */
   };
 
   if (notify) {
