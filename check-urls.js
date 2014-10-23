@@ -18,13 +18,14 @@
 var request = require('request'), bot = require('nodemw'), path = require('path'), nodemailer = require('nodemailer');
 var parser = require('./lib/parser.js');
 
+var config = require('./config.json');
+
 // set up nodemailer
-var transporter = nodemailer.createTransport({host: 'smtp.concordia.ca'});
+var transporter = nodemailer.createTransport({host: config.smtpHost});
 //var mailFrom = 'Check URL <csfg-sysadmin@concordia.ca>';
-var mailFrom = 'Check URL <d.mason@concordia.ca>', defaultTo = mailFrom;
+var mailFrom = config.mailFrom, defaultTo = mailFrom;
 var addresses = {};
 
-var config = require('./config.json');
 var params =  {
   action: 'ask',
   query: '[[Check active::true]]|?Check URL|?Check notify|?Check word|?Page'
@@ -37,13 +38,13 @@ var wikiClient = new bot({
   debug: false
 });
 
-wikiClient.logIn(config.user, config.password, getProperty);
+wikiClient.logIn(config.user, config.password, getURLs);
 
-function getProperty() {
-  var url, notify, word, page;
+function getURLs() {
   wikiClient.api.call(params, function(info, next, data) {
     if(data && data.query && data.query.results) {
       for (var e in data.query.results) {
+        var url, notify = null, word = null, page;
         var p = data.query.results[e].printouts;
         url = p['Check URL'][0];
         try {
@@ -76,7 +77,6 @@ function checkURL(url, notify, page, word) {
 
 function sendProblemEmail(url, notify, page, error) {
   var sendMail = function(email) {
-    console.log('got', error, email);
     var sendTo = [defaultTo];
     if (email) {
       sendTo.push(email);
