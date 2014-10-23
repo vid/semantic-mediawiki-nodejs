@@ -20,6 +20,8 @@ var parser = require('./lib/parser.js');
 
 var config = require('./config.json');
 
+var test = process.argv.length === 3 && process.argv[2] == '-t';
+
 // set up nodemailer
 var transporter = nodemailer.createTransport({host: config.smtpHost});
 var mailFrom = config.mailFrom, defaultTo = mailFrom;
@@ -55,6 +57,9 @@ function getURLs() {
         } catch (e) {
         }
         page = p.Page ? p.Page[0].fullurl : null;
+        if (test) {
+          console.log('testing', url, 'notify', notify, 'word', word, 'page', page);
+        }
         checkURL(url, notify, page, word);
       }
     }
@@ -86,13 +91,17 @@ function sendProblemEmail(url, notify, page, error) {
       text: 'Check URL: ' + url + '\nSource wiki page ' + page.replace('intranet', 'auth') + '\nError: ' + JSON.stringify(error, null, 2)
     };
 
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error){
-        console.log(error);
-      } else {
-        console.log('Message sent: ' + info.response);
-      }
-    });
+    if (test) {
+      console.log('test:', mailOptions);
+    } else {
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error){
+          console.log(error);
+        } else {
+          console.log('Message sent: ' + info.response);
+        }
+      });
+    }
   };
 
   if (notify) {
