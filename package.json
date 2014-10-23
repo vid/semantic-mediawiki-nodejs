@@ -24,7 +24,10 @@
   "homepage": "https://github.com/vid/nodejs-semantic-mediawiki",
   "dependencies": {
     "csv": "~0.1",
-    "nodemw": "^0.3.16"
+    "nodemailer": "^1.3.0",
+    "nodemailer-smtp-transport": "^0.1.13",
+    "nodemw": "^0.3.16",
+    "request": "^2.46.0"
   },
   "devDependencies": {
     "expect.js": "~0.2.0"
