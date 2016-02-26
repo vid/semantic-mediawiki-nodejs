@@ -1,7 +1,7 @@
 nodejs-semantic-mediawiki
 =========================
 
-javascript & nodejs for use with smw - import, visualization, etc. — Edit
+packaged nodejs for use with smw - import, visualization, etc. — Edit
 
 uploadCSV.js
 ========
